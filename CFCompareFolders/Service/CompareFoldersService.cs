@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 
 namespace CFCompareFolders
 {
-    internal class CompareManager
+    /// <summary>
+    /// Compares folders
+    /// </summary>
+    internal class CompareFoldersService
     {
         public delegate void StatusCheckingFolder(object sender, string folder1, string folder2);
         public StatusCheckingFolder OnStatusCheckingFolder;

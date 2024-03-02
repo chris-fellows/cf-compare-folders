@@ -1,25 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
+﻿using System.IO;
 using System.Diagnostics;
 
 namespace CFCompareFolders
 {
-    class InternalUtilities
+    internal class InternalUtilities
     {
         public static void StartFileDiffTool(string file1, string file2)
         {           
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.CreateNoWindow = false;
-            startInfo.UseShellExecute = false;
-            //startInfo.FileName = @"C:\Program Files\KDiff3\kdiff3.exe";  
-
+            startInfo.UseShellExecute = false;   
             startInfo.FileName = System.Configuration.ConfigurationSettings.AppSettings.Get("FileDiffTool.Path");
 
-            string arguments = System.Configuration.ConfigurationSettings.AppSettings.Get("FileDiffTool.Arguments");
+            var arguments = System.Configuration.ConfigurationSettings.AppSettings.Get("FileDiffTool.Arguments");
             arguments = arguments.Replace("{file1}", file1);
             arguments = arguments.Replace("{file2}", file2);
 

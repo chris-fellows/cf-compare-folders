@@ -80,19 +80,19 @@ namespace CFCompareFolders
             btnCompare.Enabled = false;
 
             // Compare
-            CompareManager manager = new CompareManager();
-            manager.OnStatusCheckingFolder += HandleStatusCheckingFolder;
+            CompareFoldersService service = new CompareFoldersService();
+            service.OnStatusCheckingFolder += HandleStatusCheckingFolder;
             CompareOptions compareOptions = new CompareOptions()
             {
                 IncludeSubFolders = true,
                 IncludeHiddenFiles = true,
                 IncludeHiddenFolders = true
             };
-            compareOptions.FileExtensionsToIgnore.AddRange(new string[] { ".dll", ".exe", ".git", ".gitignore", ".pdb", ".cache" });
-            compareOptions.FolderNamesToIgnore.AddRange(new string[] { ".git" });
+            //compareOptions.FileExtensionsToIgnore.AddRange(new string[] { ".dll", ".exe", ".git", ".gitignore", ".pdb", ".cache" });
+            //compareOptions.FolderNamesToIgnore.AddRange(new string[] { ".git" });
 
             DisplayStatus("Comparing folders");
-            List<CompareItem> compareItems = manager.CompareFolders(txtFolder1.Text, txtFolder2.Text, compareOptions);  
+            List<CompareItem> compareItems = service.CompareFolders(txtFolder1.Text, txtFolder2.Text, compareOptions);  
 
             // Display results
             DisplayResults(compareItems);            

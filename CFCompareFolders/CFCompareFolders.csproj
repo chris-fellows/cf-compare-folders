@@ -47,20 +47,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CompareItem.cs" />
-    <Compile Include="CompareItemFile.cs" />
-    <Compile Include="CompareItemFolder.cs" />
-    <Compile Include="CompareManager.cs" />
-    <Compile Include="CompareOptions.cs" />
-    <Compile Include="Difference.cs" />
-    <Compile Include="FileDifference.cs" />
-    <Compile Include="FileUserControl.cs">
+    <Compile Include="Models\CompareItem.cs" />
+    <Compile Include="Models\CompareItemFile.cs" />
+    <Compile Include="Models\CompareItemFolder.cs" />
+    <Compile Include="Service\CompareFoldersService.cs" />
+    <Compile Include="Models\CompareOptions.cs" />
+    <Compile Include="Models\Difference.cs" />
+    <Compile Include="Models\FileDifference.cs" />
+    <Compile Include="Controls\FileUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="FileUserControl.Designer.cs">
+    <Compile Include="Controls\FileUserControl.Designer.cs">
       <DependentUpon>FileUserControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="FolderDifference.cs" />
+    <Compile Include="Models\FolderDifference.cs" />
     <Compile Include="InternalUtilities.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -70,7 +70,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="FileUserControl.resx">
+    <EmbeddedResource Include="Controls\FileUserControl.resx">
       <DependentUpon>FileUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
