@@ -1,30 +1,39 @@
-﻿using System.IO;
-using System.Diagnostics;
+﻿using System;
+using System.IO;
+using System.ComponentModel;
+using CFCompareFolders.Enums;
+using System.Linq;
 
-namespace CFCompareFolders
+namespace CFCompareFolders.Utilities
 {
     internal class InternalUtilities
     {
-        public static void StartFileDiffTool(string file1, string file2)
-        {           
-            ProcessStartInfo startInfo = new ProcessStartInfo();
-            startInfo.CreateNoWindow = false;
-            startInfo.UseShellExecute = false;   
-            startInfo.FileName = System.Configuration.ConfigurationSettings.AppSettings.Get("FileDiffTool.Path");
+        public static string GetEnumDescription(Enum enumValue)
+        {
+            var field = enumValue.GetType().GetField(enumValue.ToString());
+            if (field == null)
+                return enumValue.ToString();
 
-            var arguments = System.Configuration.ConfigurationSettings.AppSettings.Get("FileDiffTool.Arguments");
-            arguments = arguments.Replace("{file1}", file1);
-            arguments = arguments.Replace("{file2}", file2);
-
-            startInfo.WindowStyle = ProcessWindowStyle.Normal;
-            startInfo.Arguments = arguments;
-            //startInfo.Arguments = string.Format("\"{0}\" \"{1}\"", file1, file2);
-
-            using (Process exeProcess = Process.Start(startInfo))
+            var attributes = field.GetCustomAttributes(typeof(DescriptionAttribute), false);
+            if (Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute)) is DescriptionAttribute attribute)
             {
-                exeProcess.WaitForExit();
+                return attribute.Description;
             }
+
+            return enumValue.ToString();
         }
+
+        public static bool IsFolderDifferenceType(DifferenceTypes differenceType)
+        {
+            var enums = new[] { DifferenceTypes.Folder1NotExists, DifferenceTypes.Folder2NotExists, DifferenceTypes.FolderAttributesDifferent, DifferenceTypes.FolderModifiedDifferent };
+            return enums.Contains(differenceType);
+        }
+
+        public static bool IsFileDifferenceType(DifferenceTypes differenceType)
+        {
+            return !IsFolderDifferenceType(differenceType);
+        }
+
         public static void CompareFileLines(string file1, int startLine1, out int difference1, string file2, int startLine2, out int difference2)
         {
             difference1 = -1;
